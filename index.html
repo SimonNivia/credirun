@@ -4,17 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CrediRun - Simulá tu préstamo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/684/684831.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/684/684831.png">
+
     <style>
-        body {
+        /* RESET */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: Arial, sans-serif;
             background: #f8f9fb;
+            overflow-x: hidden;
+            color: #0A1C4F;
         }
 
         /* Header */
         header {
             background: white;
-            padding: 20px 40px;
+            padding: 15px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -22,15 +35,17 @@
             position: fixed;
             top: 0;
             width: 100%;
-            z-index: 10;
+            z-index: 20;
         }
 
-        header h1 {
-            margin: 0;
+        /* LOGO TIPOGRÁFICO MODERNO */
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
             background: linear-gradient(to right, #0A1C4F, #00C896);
             -webkit-background-clip: text;
             color: transparent;
-            font-size: 26px;
+            letter-spacing: -1px;
         }
 
         nav a {
@@ -40,54 +55,104 @@
             font-weight: bold;
         }
 
-        /* Contenedor */
         .container {
-            margin-top: 140px;
-            text-align: center;
-            max-width: 700px;
+            margin-top: 130px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 20px;
+            text-align: center;
         }
 
         h2 {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: bold;
-            color: #0A1C4F;
         }
 
+        /* CTA Button */
+        .cta {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: linear-gradient(to right, #0A1C4F, #00C896);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Monto */
         .monto {
             font-size: 44px;
-            margin: 15px 0;
-            color: #0A1C4F;
+            margin: 12px 0;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 15px;
         }
 
         /* Botones plazo */
-        .plazos {
-            margin-top: 20px;
-        }
         .plazos button {
             padding: 12px 20px;
-            margin: 5px;
+            margin: 6px;
             border-radius: 25px;
             border: none;
             background: #e9ecef;
             cursor: pointer;
             font-weight: bold;
         }
+
         .plazos button.active {
             background: linear-gradient(to right, #0A1C4F, #00C896);
             color: white;
         }
 
-        /* Resultado */
-        .resultado {
-            margin-top: 40px;
-            font-size: 28px;
-            font-weight: bold;
-            color: #0A1C4F;
+        /* Sección Beneficios */
+        .beneficios {
+            margin-top: 80px;
         }
 
-        /* Botón flotante WhatsApp */
+        .beneficios h3 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        .beneficio-item {
+            padding: 20px;
+            margin-top: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+        }
+
+        /* Sección Cómo funciona */
+        .pasos {
+            margin-top: 80px;
+        }
+
+        .pasos h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .paso-item {
+            background: white;
+            margin-top: 18px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.07);
+        }
+
+        /* Resultado */
+        .resultado {
+            margin-top: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* WhatsApp Button */
         .wsp {
             position: fixed;
             bottom: 25px;
@@ -96,32 +161,75 @@
             border-radius: 50%;
             padding: 18px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            z-index: 50;
         }
+
         .wsp img {
             width: 40px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 100px;
+            background: #0A1C4F;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 12px 15px;
+            }
+            .logo {
+                font-size: 22px;
+            }
+            nav a {
+                margin-left: 12px;
+                font-size: 14px;
+            }
+            h2 {
+                font-size: 28px;
+            }
+            .monto {
+                font-size: 36px;
+            }
+            .beneficios h3,
+            .pasos h3 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>CrediRun</h1>
+    <div class="logo">CrediRun</div>
     <nav>
-        <a href="#">INICIO</a>
-        <a href="#simulador">CALCULADORA</a>
-        <a href="https://wa.me/5493765033461" target="_blank" style="color:#00C896">WHATSAPP</a>
+        <a href="#">Inicio</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#pasos">Cómo funciona</a>
     </nav>
 </header>
 
 <div class="container" id="simulador">
-    <h2>Simulá tu <span style="color:#00C896;">Préstamo</span> y recibilo al instante</h2>
-    
-    <p>¿Cuánto querés pedir?</p>
-    <div class="monto" id="montoLabel">$50.000</div>
+    <h2>Simulá tu préstamo y recibilo al instante</h2>
 
-    <input type="range" id="monto" min="10000" max="500000" value="50000" step="1000" style="width:100%;">
+    <a class="cta" href="https://wa.me/5493765033461" target="_blank">Solicitar ahora</a>
 
-    <p>¿En cuánto tiempo?</p>
+    <p style="margin-top:40px;">¿Cuánto querés pedir?</p>
+    <div class="monto" id="montoLabel">$100.000</div>
+
+    <input type="range" id="monto" min="100000" max="500000" value="100000" step="1000">
+
+    <p>¿En cuántos días?</p>
+
     <div class="plazos">
         <button onclick="seleccionarPlazo(15, 0.30)">15 días</button>
         <button onclick="seleccionarPlazo(30, 0.45)">30 días</button>
@@ -132,12 +240,44 @@
     <div class="resultado" id="resultado">Valor de cuota: -</div>
 </div>
 
-<!-- Botón flotante WhatsApp -->
+<!-- SECCIÓN BENEFICIOS -->
+<div class="container beneficios" id="beneficios">
+    <h3>¿Por qué elegir CrediRun?</h3>
+
+    <div class="beneficio-item">💸 Aprobación instantánea</div>
+    <div class="beneficio-item">⚡ Depósito rápido</div>
+    <div class="beneficio-item">🛡️ 100% seguro</div>
+    <div class="beneficio-item">📱 Todo desde tu celular</div>
+    <div class="beneficio-item">🇦🇷 Operamos en toda Argentina</div>
+</div>
+
+<!-- SECCIÓN CÓMO FUNCIONA -->
+<div class="container pasos" id="pasos">
+    <h3>¿Cómo funciona?</h3>
+
+    <div class="paso-item">1️⃣ Elegís el monto</div>
+    <div class="paso-item">2️⃣ Seleccionás el plazo</div>
+    <div class="paso-item">3️⃣ Hablás con un asesor</div>
+    <div class="paso-item">4️⃣ Recibís tu dinero</div>
+</div>
+
+<!-- BOTÓN WHATSAPP -->
 <a class="wsp" href="https://wa.me/5493765033461" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
 </a>
 
+<!-- FOOTER -->
+<footer>
+    <p><strong>CrediRun</strong> — Préstamos rápidos y seguros</p>
+    <p>WhatsApp: +54 9 3765 03-3461</p>
+    <p>Horarios: Lunes a Sábados — 09:00 a 20:00</p>
+    <p>© <span id="year"></span> CrediRun. Todos los derechos reservados.</p>
+</footer>
+
 <script>
+    // Año dinámico
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     let montoSlider = document.getElementById("monto");
     let montoLabel = document.getElementById("montoLabel");
     let resultado = document.getElementById("resultado");
