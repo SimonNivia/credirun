@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrediRun - Simulá tu préstamo</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f8f9fb;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            background: linear-gradient(to right, #0A1C4F, #00C896);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 26px;
+        }
+
+        nav a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #0A1C4F;
+            font-weight: bold;
+        }
+
+        /* Contenedor */
+        .container {
+            margin-top: 140px;
+            text-align: center;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #0A1C4F;
+        }
+
+        .monto {
+            font-size: 44px;
+            margin: 15px 0;
+            color: #0A1C4F;
+        }
+
+        /* Botones plazo */
+        .plazos {
+            margin-top: 20px;
+        }
+        .plazos button {
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            border: none;
+            background: #e9ecef;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .plazos button.active {
+            background: linear-gradient(to right, #0A1C4F, #00C896);
+            color: white;
+        }
+
+        /* Resultado */
+        .resultado {
+            margin-top: 40px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #0A1C4F;
+        }
+
+        /* Botón flotante WhatsApp */
+        .wsp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            border-radius: 50%;
+            padding: 18px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        .wsp img {
+            width: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>CrediRun</h1>
+    <nav>
+        <a href="#">INICIO</a>
+        <a href="#simulador">CALCULADORA</a>
+        <a href="https://wa.me/5493765033461" target="_blank" style="color:#00C896">WHATSAPP</a>
+    </nav>
+</header>
+
+<div class="container" id="simulador">
+    <h2>Simulá tu <span style="color:#00C896;">Préstamo</span> y recibilo al instante</h2>
+    
+    <p>¿Cuánto querés pedir?</p>
+    <div class="monto" id="montoLabel">$50.000</div>
+
+    <input type="range" id="monto" min="10000" max="500000" value="50000" step="1000" style="width:100%;">
+
+    <p>¿En cuánto tiempo?</p>
+    <div class="plazos">
+        <button onclick="seleccionarPlazo(15, 0.30)">15 días</button>
+        <button onclick="seleccionarPlazo(30, 0.45)">30 días</button>
+        <button onclick="seleccionarPlazo(60, 0.80)">60 días</button>
+        <button onclick="seleccionarPlazo(90, 1.20)">90 días</button>
+    </div>
+
+    <div class="resultado" id="resultado">Valor de cuota: -</div>
+</div>
+
+<!-- Botón flotante WhatsApp -->
+<a class="wsp" href="https://wa.me/5493765033461" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+</a>
+
+<script>
+    let montoSlider = document.getElementById("monto");
+    let montoLabel = document.getElementById("montoLabel");
+    let resultado = document.getElementById("resultado");
+    let interesSeleccionado = 0;
+
+    montoSlider.oninput = function () {
+        montoLabel.textContent = "$" + Number(this.value).toLocaleString();
+        calcular();
+    };
+
+    function seleccionarPlazo(dias, interes) {
+        interesSeleccionado = interes;
+
+        document.querySelectorAll('.plazos button').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+
+        calcular();
+    }
+
+    function calcular() {
+        let monto = Number(montoSlider.value);
+        if (interesSeleccionado === 0) return;
+
+        let total = monto + (monto * interesSeleccionado);
+        resultado.textContent = "Valor de cuota: $" + total.toLocaleString();
+    }
+</script>
+
+</body>
+</html>
